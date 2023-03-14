@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'year'];
+    public $timestamps = false;
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
 }

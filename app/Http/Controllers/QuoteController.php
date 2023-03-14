@@ -8,59 +8,46 @@ use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $quotes = Quote::all();
+        return response()->json($quotes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $quote = new Quote;
+        $quote->quote_text = $request->quote_text;
+        $quote->author_id = $request->author_id;
+        $quote->genre_id = $request->genre_id;
+        $quote->book_id = $request->book_id;
+        $quote->save();
+        return response()->json($quote);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Quote $quote)
     {
-        //
+        $quote = Quote::find($quote);
+        return $quote;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Quote $quote)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Quote $quote)
     {
-        //
+        $quote = Quote::findOrFail($quote);
+        $quote->quote_text = $request->quote_text;
+        $quote->author_id = $request->author_id;
+        $quote->genre_id = $request->genre_id;
+        $quote->book_id = $request->book_id;
+        $quote->save();
+        return response()->json($quote);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Quote $quote)
     {
-        //
+        $quote = Quote::findOrFail($quote);
+        $quote->delete();
+        return response()->json(['message' => 'Quote deleted']);
     }
 }
