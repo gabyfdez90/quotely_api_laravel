@@ -56,25 +56,37 @@ class QuoteController extends Controller
     }
 
 
-    public function update(Request $request, Quote $quote)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'text' => 'required|string',
-            'author_name' => 'required|string|exists:authors,id',
-            'genre_name' => 'required|string|exists:genres,id',
-            'book_title' => 'required|string|exists:books,id',
-            'book_year' => 'required|integer|exists:books,year',
-            'author_profession' => 'sometimes|string|exists:authors,profession'
+            'author_name' => 'required|string',
+            'genre_name' => 'required|string',
+            'book_name' => 'required|string',
+            'book_year' => 'required|integer',
+            'author_profession' => 'sometimes|string'
         ]);
 
-        $quote = Quote::findOrFail($quote);
-        $quote->quote_text = $request->quote_text;
-        $quote->author_id = $request->author_id;
-        $quote->genre_id = $request->genre_id;
-        $quote->book_id = $request->book_id;
-        $quote->save();
-        return response()->json($quote);
+        $book = Book::updateOrCreate(['name' => $validatedData['book_name'], 'year' => $validatedData['book_year']]);
+        $author = Author::updateOrCreate(['name' => $validatedData['author_name'], 'profession' => $validatedData['author_profession']]);
+        $genre = Genre::updateOrCreate(['name' => $validatedData['genre_name']]);
+
+        $quote = Quote::find($id);
+
+        if (!$quote) {
+            return response()->json(['message' => 'Quote not found'], 404);
+        }
+
+        $quote->update([
+            'text' => $validatedData['text'],
+            'book_ID' => $book->id,
+            'author_ID' => $author->id,
+            'genre_ID' => $genre->id,
+        ]);
+
+        return response()->json(['message' => 'Record updated successfully']);
     }
+
 
 
     public function destroy(Quote $quote)
