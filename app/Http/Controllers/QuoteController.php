@@ -89,9 +89,9 @@ class QuoteController extends Controller
 
 
 
-    public function destroy(Quote $quote)
+    public function destroy(int $id)
     {
-        $quote = Quote::findOrFail($quote);
+        $quote = Quote::findOrFail($id);
         $quote->delete();
         return response()->json(['message' => 'Quote deleted']);
     }
