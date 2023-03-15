@@ -24,10 +24,14 @@ class AuthorController extends Controller
         return response()->json($author);
     }
 
-    public function show(Author $author)
+    public function show($authorId)
     {
-        $author = Author::find($author);
-        return $author;
+        $author = Author::findOrFail($authorId);
+        if ($author) {
+            return response()->json($author->toArray());
+        } else {
+            return response()->json(['message' => 'Author not found'], 404);
+        }
     }
 
     public function update(Request $request, Author $author)

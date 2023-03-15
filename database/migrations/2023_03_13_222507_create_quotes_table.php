@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->id();
             $table->string('text');
-            $table->unsignedBigInteger('author_ID');
-            $table->unsignedBigInteger('book_ID');
-            $table->unsignedBigInteger('genre_ID');
+            $table->unsignedBigInteger('author_ID')->nullable();
+            $table->unsignedBigInteger('book_ID')->nullable();
+            $table->unsignedBigInteger('genre_ID')->nullable();
             $table->timestamps();
 
             $table->foreign('author_ID')->references('id')->on('authors')->onDelete('cascade');

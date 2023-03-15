@@ -22,10 +22,14 @@ class BookController extends Controller
         return response()->json($book);
     }
 
-    public function show(Book $book)
+    public function show($bookId)
     {
-        $book = Book::find($book);
-        return $book;
+        $book = Book::findOrFail($bookId);
+        if ($book) {
+            return response()->json($book->toArray());
+        } else {
+            return response()->json(['message' => 'Book not found'], 404);
+        }
     }
 
     public function update(Request $request, Book $book)

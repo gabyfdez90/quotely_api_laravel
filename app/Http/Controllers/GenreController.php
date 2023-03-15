@@ -23,10 +23,14 @@ class GenreController extends Controller
         return response()->json($genre);
     }
 
-    public function show(Genre $genre)
+    public function show($genreId)
     {
-        $genre = Genre::find($genre);
-        return $genre;
+        $genre = Genre::findOrFail($genreId);
+        if ($genre) {
+            return response()->json($genre->toArray());
+        } else {
+            return response()->json(['message' => 'Genre not found'], 404);
+        }
     }
 
     public function update(Request $request, Genre $genre)
