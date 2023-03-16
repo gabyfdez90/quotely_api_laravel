@@ -1,66 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Quotely - Laravel API
 
-## About Laravel
+This repository stores a backend API service that complements Quotely application.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![quotelyLogo](https://user-images.githubusercontent.com/117080861/225559955-2b0d2933-bf7b-496d-b742-866bc79e64bb.png)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## What is Quotely? 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Annotating quotes is a way to extend the pleasure of reading. So, we share passages from our books with other people or revisit your pages in the future with little effort.
 
-## Learning Laravel
+Quotely allows you to always have your notable quotes at hand. Can classify by genre and author, as well as share with others.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+##Database
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The database for Quotely was designed as shows the following entity relationship diagram:
 
-## Laravel Sponsors
+![quotelyERD](https://user-images.githubusercontent.com/117080861/225568274-82f7f54e-44ce-4295-b82e-e361e4269561.png)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+## Endpoints
+The principal endpoints of this API returns all the data available on the quotes in the database. For example:
+*  GET /api/quotes (returns all quotes)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    This is an example response:
+    
+    ![quotelyEndpoint1](https://user-images.githubusercontent.com/117080861/225566295-7aacb304-1703-40ec-a344-4784a6b13909.png)
 
-## Contributing
+* POST /api/quote (store a new quote)
+* GET /api/quote/{id} (show a single quote by id)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    This is an example Json response:
+    
+    ![quotelyEndpoint2](https://user-images.githubusercontent.com/117080861/225567042-625e64f5-f1d9-4548-85dc-cd578d894523.png)
 
-## Code of Conduct
+* PUT /api/quote/{id} (update an existing quote)
+* DELETE /api/quote/{id} (delete an existing quote)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Technologies 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* Laravel
+* MySQL
 
-## License
+### You could consider to use:
+* XAMPP- to run the application locally.
+* Postman- to see the endpoint response.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Installation
+Once you have cloned this Github repo, you must follow these steps to run the application:
+
+* Install dependencies with:
+    `composer install`
+    `npm install`
+* Create a MySQL database (you could use PHPMyAdmin or the command line to do that)
+* Create the .env file (as reference, you could use "env.example" in project root)
+* Migrate the database with:
+    `php artisan migrate`
+    `php artisan migrate:fresh`
+    (this command is to update changes to previous migrations)
+    `php artisan migrate:fresh --seed`
+    (the last command is for update previous migrations and seed the daatbae with 10 records usign random data)
+
+
