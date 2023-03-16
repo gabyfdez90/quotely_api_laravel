@@ -13,7 +13,8 @@ class QuoteController extends Controller
 {
     public function index()
     {
-        $quotes = Quote::all();
+        $quotes = Quote::with(['book', 'author', 'genre'])->get();
+
         return response()->json($quotes);
     }
 
@@ -45,9 +46,10 @@ class QuoteController extends Controller
         }
     }
 
-    public function show($quoteId)
+    public function show($quoteID)
     {
-        $quote = Quote::findOrFail($quoteId);
+        $quote = Quote::with(['book', 'author', 'genre'])->find($quoteID);
+
         if ($quote) {
             return response()->json($quote->toArray());
         } else {
