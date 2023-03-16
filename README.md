@@ -12,7 +12,7 @@ Annotating quotes is a way to extend the pleasure of reading. So, we share passa
 Quotely allows you to always have your notable quotes at hand. Can classify by genre and author, as well as share with others.
 
 
-##Database
+## Database
 
 The database for Quotely was designed as shows the following entity relationship diagram:
 
@@ -37,6 +37,7 @@ The principal endpoints of this API returns all the data available on the quotes
 * PUT /api/quote/{id} (update an existing quote)
 * DELETE /api/quote/{id} (delete an existing quote)
 
+There are other endpoints, designed to manage data just for each one of these tables: Books, Author and Genre. They are complementary to the essential functions of Quotely app.
 
 ## Technologies 
 
