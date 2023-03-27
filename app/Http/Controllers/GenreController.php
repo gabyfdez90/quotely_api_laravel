@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\Quote;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,6 +17,14 @@ class GenreController extends Controller
         return response()->json($genres);
     }
 
+    public function filterByGenreName($name)
+    {
+        $quotes = Quote::whereHas('genre', function ($query) use ($name) {
+            $query->where('name', 'like', "%$name%");
+        })->with(['book', 'author', 'genre'])->get();
+
+        return response()->json($quotes);
+    }
 
     public function store(Request $request)
     {

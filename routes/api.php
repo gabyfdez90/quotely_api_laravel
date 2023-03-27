@@ -39,7 +39,7 @@ Route::controller(AuthorController::class)->group(function () {
 });
 
 Route::controller(GenreController::class)->group(function () {
-    Route::get('/genres', 'index');
+    Route::get('/genres/{name}', 'filterByGenreName');
     Route::post('/genre', 'store');
     Route::put('/genre/{id}', 'update');
     Route::get('/genre/{id}', 'show');
