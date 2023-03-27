@@ -31,7 +31,7 @@ Route::controller(BookController::class)->group(function () {
 });
 
 Route::controller(AuthorController::class)->group(function () {
-    Route::get('/authors', 'index');
+    Route::get('/authors/{name}', 'filterByAuthorName');
     Route::post('/author', 'store');
     Route::put('/author/{id}', 'update');
     Route::get('/author/{id}', 'show');

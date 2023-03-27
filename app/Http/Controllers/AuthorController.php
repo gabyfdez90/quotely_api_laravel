@@ -3,17 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
+use App\Models\Quote;
+use App\Models\Genre;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all();
-        return response()->json($authors);
+        $authorName = $request->input('name');
+
+        $query = Quote::query();
+
+        if ($authorName) {
+            $query->whereHas('author', function ($query) use ($authorName) {
+                $query->where('name', 'like', '%' . $authorName . '%');
+            });
+        }
+
+        $quotes = $query->with(['book', 'author', 'genre'])->get();
+
+        return response()->json($quotes);
     }
+
+
+    public function filterByAuthorName($name)
+    {
+        $quotes = Quote::whereHas('author', function ($query) use ($name) {
+            $query->where('name', 'like', "%$name%");
+        })->with(['book', 'author', 'genre'])->get();
+
+        return response()->json($quotes);
+    }
+
 
     public function store(Request $request)
     {
