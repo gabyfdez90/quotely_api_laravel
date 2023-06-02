@@ -52,9 +52,6 @@ class GenreController extends Controller
         return response()->json($genre);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(int $genreID)
     {
         $genre = Genre::findOrFail($genreID);
