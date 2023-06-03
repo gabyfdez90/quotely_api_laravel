@@ -62,5 +62,8 @@ Once you have cloned this Github repo, you must follow these steps to run the ap
     (this command is to update changes to previous migrations)
     `php artisan migrate:fresh --seed`
     (the last command is for update previous migrations and seed the daatbae with 10 records usign random data)
+* Execute the API in your local server using:
+        `php artisan serve`
+  And then, go to the IP adress that the console indicates or check your API response with Postman. 
 
 
